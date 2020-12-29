@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hunt dos Neutrim</title>
+</head>
+<body>
+    <h1>
+        SEPARADOR DE LUCROS DOS MAIS NEUTRIM MAIS FOFIM DE UTOBRA
+    </h1>
+    <form action="{{url_for('results')}}" method="POST">
+        <label><b>Cola aqui o party hunt:</b></label>
+        <br>
+        <textarea name='party_hunt'></textarea><br>
+        <span>copia e cola só, não faz firula não!</span>
+        <br><hr>
+        <label><b>Coloca o nome de quem usou a cartinha e quantas foram:</b></label><br>
+        <input type="text" name='prey_cards'>
+        <br>
+        <span>ex: Teus Joganavantagem,99;Tatah Joganavantagem,5;</span><br>
+        <span>escreve o nome certo e separa da quantidade por virgula, depois da quantidade bota um ;</span>
+        <hr>
+        <label><b>Preço da tibia coin</b></label><br>
+        <input type="text" name='tibia_coin_value'><br>
+        <span>se tiver dificuldade nesse aqui eu desisto</span><br>
+        <span>mas como não duvido nada, lá vai:</span><br>
+        <span>é só colocar o valor, sem vírgula, sem ponto, valor total, ex: 9900</span><br>
+        <button type="submit">Enviar</button>
+
+    </form>
+</body>
+</html>

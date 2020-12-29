@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+    </style>
+    <title>Resultado Divisão</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Balance</th>
+            <th>Balance-Cartinha</th>
+            <th>Deve Receber</th>
+        </tr>
+            {%for player in players%}
+            <tr>
+                <td>{{player['name']}}</td>
+                <td>{{player['balance']}}</td>
+                <td>{{player['real_balance']}}</td>
+                <td>{{player['should_receive']}}</td>
+            </tr>
+            {%endfor%}
+
+    </table>
+
+    <br><br><br><span>Mais mastigado que isso, só se eu jogar por vocês 5!</span>
+</body>
+</html>
