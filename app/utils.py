@@ -46,11 +46,53 @@ def should_receive(players):
         player['should_receive'] = int(profit_each - player['real_balance'])
     return players
 
+def separetes_into_debtors_and_creditors(players):
+    debtors = []
+    creditors = []
+    for player in players:
+        player['transfer_or_receive'] = player['should_receive']
+        if player['should_receive'] <= 0:
+            debtors.append(player)
+        else:
+            creditors.append(player)
+    return debtors, creditors
+
+def who_transfers_to_whom(debtors, creditors):
+    transfer_to = []
+    for debtor in debtors:
+        debtor_dict = {
+            "name": debtor['name'],
+            "transfers_to": []
+        }
+        for creditor in creditors:
+            transfer_value = creditor['transfer_or_receive'] if creditor['transfer_or_receive'] <= abs(debtor['transfer_or_receive']) else -debtor['transfer_or_receive']
+            debtor['transfer_or_receive'] += abs(transfer_value)
+            creditor['transfer_or_receive'] -= transfer_value
+            if transfer_value:
+                debtor_dict['transfers_to'].append({
+                'to': creditor['name'],
+                'amount': abs(transfer_value)})
+            if not creditor['transfer_or_receive']:
+                continue
+        transfer_to.append(debtor_dict)
+    return transfer_to
+
+def whole_text(transfer_to):
+    string = ''
+    for debtor in transfer_to:
+        string += f'*{debtor["name"]}* transfer to:\\n'
+        for line in debtor['transfers_to']:
+            string += f'transfer {line["amount"]} to {line["to"]}\\n'
+        string += '\\n'
+    return string
+
 
 def text_to_should_receive(text, prey_cards, tibia_coin_price):
     players = get_players_from_copy(text)
     players = real_balance(players, prey_cards, tibia_coin_price)
     players = should_receive(players)
-    return players
+    transfer_to = who_transfers_to_whom(*separetes_into_debtors_and_creditors(players))
+    text_to_clipboard = whole_text(transfer_to)
+    return players, transfer_to, text_to_clipboard
 
 

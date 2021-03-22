@@ -19,7 +19,28 @@
         tr:nth-child(even) {
           background-color: #dddddd;
         }
+
     </style>
+    <script>
+      function copyToClipBoard(element){
+        element.select();
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+      };
+
+      const copyToClipboardWholeText = () => {
+      const el = document.createElement('textarea');
+      el.value = "{{text_to_clipboard}}";
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    };
+    </script>
     <title>Resultado Divisão</title>
 </head>
 <body>
@@ -39,7 +60,24 @@
             </tr>
             {%endfor%}
 
-    </table>
+    </table><hr>
+    <div id="transfers" style="margin: 3px;">
+      {%for debtor in transfer_to%}
+      <p><b>{{debtor.name}}</b> transfer to:</p>
+      {%for line in debtor.transfers_to%}
+      <input type="text" value="transfer {{line.amount}} to {{line.to}}" 
+                         id="{{debtor.name}}_transfer_{{line.to}}" 
+                         style="width: 400px; margin-bottom: 10px;"
+                         onclick="copyToClipBoard(this)"
+                         readonly
+                         />      
+      {%endfor%}
+      <hr>
+      {%endfor%}
+
+      <button onclick="copyToClipboardWholeText()">Copiar todo o texto</button>
+    </div>
+
 
     <br><br><br><span>Mais mastigado que isso, só se eu jogar por vocês 5!</span>
 </body>

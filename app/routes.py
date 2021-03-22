@@ -26,4 +26,5 @@ def results():
         prey_card['amount'] = int(prey_card_raw.split(',')[1])
         prey_cards.append(prey_card)
     tibia_coin_price = int(request.form['tibia_coin_value'])
-    return render_template('results.html', players=text_to_should_receive(text, prey_cards, tibia_coin_price))
+    players, transfer_to, text_to_clipboard = text_to_should_receive(text, prey_cards, tibia_coin_price)
+    return render_template('results.html', players=players, transfer_to=transfer_to, text_to_clipboard=text_to_clipboard)
